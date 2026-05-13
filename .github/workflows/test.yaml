@@ -1,0 +1,60 @@
+name: test
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  ## ======================================================================================================
+  test:
+    name: test
+    runs-on: windows-latest
+    if: false
+    steps:
+      - name: Checkout
+        # https://github.com/actions/checkout
+        uses: actions/checkout@v5
+
+#      - name: Add msbuild to PATH
+#        # https://github.com/microsoft/setup-msbuild
+#        uses: microsoft/setup-msbuild@v2
+#        with:
+#            vs-version: 17.0
+#            # vs-version: '[16.11, 16.12)'
+#
+      - uses: MinoruSekine/setup-scoop@v4.0.2
+        # https://github.com/MinoruSekine/setup-scoop
+        with:
+          buckets: main
+          apps: beef
+
+      - name: Set Beef Path
+        shell: pwsh
+        run: |
+          $beef = scoop prefix beef
+          echo "BeefPath=$beef" >> $env:GITHUB_ENV
+
+      - name: setup raylib-beef
+        shell: pwsh
+        run: |
+          mkdir _deps
+          cd _deps
+          git clone --depth 1 --branch 5.5 https://github.com/Starpelly/raylib-beef.git
+
+      - name: Build
+        shell: pwsh
+        run: |
+          BeefBuild -workspace="Sample.Beef.Tetris" -config=Release
+
+      - name: 📦️⏫ Upload Artifact - SampleBeefTetris_raylib
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifact-windows-x64-raylib
+          path: |
+            Sample.Beef.Tetris/build/Release_Win64/SampleBeefTetris_raylib//SampleBeefTetris_raylib.exe
+            Sample.Beef.Tetris/build/Release_Win64/SampleBeefTetris_raylib//raylib.dll
+
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0

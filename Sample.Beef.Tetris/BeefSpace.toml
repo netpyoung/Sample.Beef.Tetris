@@ -1,0 +1,5 @@
+FileVersion = 1
+Projects = {SampleBeefTetris_raylib = {Path = "SampleBeefTetris_raylib"}, SampleBeefTetris = {Path = "SampleBeefTetris"}, SampleBeefTetris_Test = {Path = "SampleBeefTetris_Test"}, raylib-beef = {Path = "../_deps/raylib-beef/raylib-beef"}}
+
+[Workspace]
+StartupProject = "SampleBeefTetris_raylib"

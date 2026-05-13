@@ -1,0 +1,7 @@
+FileVersion = 1
+Dependencies = {SampleBeefTetris = "*"}
+
+[Project]
+Name = "SampleBeefTetris_Test"
+TargetType = "BeefTest"
+StartupObject = "SampleBeefTetris_Test.Program"

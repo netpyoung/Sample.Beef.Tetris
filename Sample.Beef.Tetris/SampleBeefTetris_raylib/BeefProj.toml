@@ -1,0 +1,8 @@
+FileVersion = 1
+Dependencies = {corlib = "*", SampleBeefTetris = "*", raylib-beef = "*"}
+
+[Project]
+Name = "SampleBeefTetris_raylib"
+TargetType = "BeefGUIApplication"
+StartupObject = "SampleBeefTetris_raylib.Program"
+DefaultNamespace = "SampleBeefTetris_raylib"
